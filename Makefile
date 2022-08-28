@@ -10,15 +10,15 @@
 # User-definable stuff:
 
 BIN_PREFIX=/usr/local/bin/
-DATA_PREFIX=/usr/share/madbomber/
+DATA_PREFIX=
 
 
 # Defaults for Linux:
 
 TARGET=madbomber
 TARGET_DEF=LINUX
-SDL_CFLAGS := $(shell sdl-config --cflags)
-SDL_LDFLAGS := $(shell sdl-config --libs)
+# SDL_CFLAGS := $(shell sdl-config --cflags)
+# SDL_LDFLAGS := $(shell sdl-config --libs)
 
 
 # Sound-related definitions:
@@ -30,7 +30,7 @@ NOSOUNDFLAG=__SOUND
 
 # Stuff we pass to the compiler:
 
-CFLAGS=-Wall $(SDL_CFLAGS) \
+CFLAGS=-arch $(ARCH) -Wall $(SDL_CFLAGS) \
 	-DDATA_PREFIX=\"$(DATA_PREFIX)\" -D$(NOSOUNDFLAG) -D$(TARGET_DEF)
 SDL_LIB=$(MIXER) $(IMAGE) $(SDL_LDFLAGS)
 
@@ -78,7 +78,7 @@ clean:
 # Main executable:
 
 $(TARGET):	madbomber.o
-	$(CC) $(CFLAGS) madbomber.o -o $(TARGET) $(SDL_LIB) -lm
+	$(CC) $(CFLAGS) madbomber.o msputils.m -o $(TARGET) $(SDL_LIB) -lm
 
 
 # Main object:

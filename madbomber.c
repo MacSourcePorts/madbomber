@@ -36,6 +36,7 @@
 #include <SDL_mixer.h>
 #endif
 
+#import "msputils.h"
 
 /* Image enumerations: */
 
@@ -2771,7 +2772,7 @@ void setup(void)
       /* Load image file: */
      
 #ifndef EMBEDDED
-      image = IMG_Load(image_names[i]);
+      image = IMG_Load(getBundlePathSubdirAndFile("Contents/Resources/Data", image_names[i]));
       
       if (image == NULL)
 	{
@@ -2950,7 +2951,7 @@ void setup(void)
     {
       for (i = 0; i < NUM_SOUNDS; i++)
 	{
-	  sounds[i] = Mix_LoadWAV(sound_names[i]);
+    sounds[i] = Mix_LoadWAV(getBundlePathSubdirAndFile("Contents/Resources/Data", sound_names[i]));
 	  if (sounds[i] == NULL)
 	    {
 	      fprintf(stderr,
@@ -2990,7 +2991,7 @@ void setup(void)
   
   if (use_sound == 1)
     {
-      title_music = Mix_LoadMUS(MUS_TITLE);
+      title_music = Mix_LoadMUS(getBundlePathSubdirAndFile("Contents/Resources/Data", MUS_TITLE));
       if (title_music == NULL)
 	{
 	  fprintf(stderr,
@@ -3003,7 +3004,7 @@ void setup(void)
       
      
 #ifndef EMBEDDED
-      highscore_music = Mix_LoadMUS(MUS_HIGHSCORE);
+      highscore_music = Mix_LoadMUS(getBundlePathSubdirAndFile("Contents/Resources/Data", MUS_HIGHSCORE));
       if (highscore_music == NULL)
 	{
 	  fprintf(stderr,
@@ -3018,7 +3019,7 @@ void setup(void)
       
       for (i = 0; i < NUM_GAME_MUSICS; i++)
 	{
-	  game_musics[i] = Mix_LoadMUS(game_music_names[i]);
+	  game_musics[i] = Mix_LoadMUS(getBundlePathSubdirAndFile("Contents/Resources/Data", game_music_names[i]));
 	  if (game_musics[i] == NULL)
 	    {
 	      fprintf(stderr,
@@ -5148,7 +5149,7 @@ void seticon(void)
  
   /* Load icon into a surface: */
   
-  icon = IMG_Load(DATA_PREFIX "images/icon.png");
+  icon = IMG_Load(getBundlePathSubdirAndFile("Contents/Resources/Data", "images/icon.png"));
   if (icon == NULL)
     {
       fprintf(stderr,
